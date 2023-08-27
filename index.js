@@ -33,22 +33,22 @@ const start = async () => {
     const chatId = msg.chat.id;
 
     if (text === "/start") {
-      //   await UserModel.create({ chatId });
+      await UserModel.create({ chatId });
 
       return await bot.sendMessage(chatId, `Welcome ${first_name}`);
     } else if (text === "/info") {
-      //   const user = await UserModel.findOne({ chatId });
+      const user = await UserModel.findOne({ chatId });
 
-      //   return await bot.sendMessage(
-      //     chatId,
-      //     `There are info about bot. Your wrong answers: ${
-      //       user.wrong ? user.wrong : 0
-      //     }, right answers: ${user.right ? user.right : 0}`
-      //   );
       return await bot.sendMessage(
         chatId,
-        `There are info about bot. Your wrong answers`
+        `There are info about bot. Your wrong answers: ${
+          user.wrong ? user.wrong : 0
+        }, right answers: ${user.right ? user.right : 0}`
       );
+      // return await bot.sendMessage(
+      //   chatId,
+      //   `There are info about bot. Your wrong answers`
+      // );
     } else if (text === "/game") {
       await bot.sendMessage(chatId, `Try to guess a number from 0 to 9`);
 
@@ -62,19 +62,19 @@ const start = async () => {
   bot.on("callback_query", async (msg) => {
     const data = msg.data;
     const chatId = msg.from.id;
-    // const user = await UserModel.findOne({ chatId });
+    const user = await UserModel.findOne({ chatId });
 
     if (+chats[chatId] === +data) {
-      //   user.right += 1;
-      //   await user.save();
+      user.right += 1;
+      await user.save();
 
       return await bot.sendMessage(
         chatId,
         `Yees! you are win! ${chats[chatId]}`
       );
     } else {
-      //   user.wrong += 1;
-      //   await user.save();
+      user.wrong += 1;
+      await user.save();
 
       return await bot.sendMessage(
         chatId,
