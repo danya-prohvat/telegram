@@ -1,7 +1,7 @@
 const TelegramApi = require("node-telegram-bot-api");
 const { gameOptions } = require("./options");
-// const sequelize = require("./db");
-// const UserModel = require("./models");
+const sequelize = require("./db");
+const UserModel = require("./models");
 
 require("dotenv").config();
 
@@ -13,13 +13,13 @@ const chats = {};
 const start = async () => {
   console.log("Server started");
 
-  //   try {
-  //     await sequelize.authenticate();
-  //     await sequelize.sync();
-  //     console.log("DB connected");
-  //   } catch (e) {
-  //     console.log("Something went wrong with connecting to DB", e);
-  //   }
+  try {
+    await sequelize.authenticate();
+    await sequelize.sync();
+    console.log("DB connected");
+  } catch (e) {
+    console.log("Something went wrong with connecting to DB", e);
+  }
 
   bot.setMyCommands([
     { command: "/start", description: "start bot" },
