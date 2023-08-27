@@ -1,7 +1,7 @@
 const TelegramApi = require("node-telegram-bot-api");
 const { gameOptions } = require("./options");
-const sequelize = require("./db");
-const UserModel = require("./models");
+// const sequelize = require("./db");
+// const UserModel = require("./models");
 
 require("dotenv").config();
 
